@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f6f1" />
+    <meta name="description" content="記錄你在日本走過、住過與珍藏的每一個地方。" />
+    <title>我的日本探索地圖</title>
+    <base id="appBase" href="/" />
+    <script>
+      (() => {
+        const routeRoots = new Set(['regions','statistics','collection','achievements','shrines','food','mountains','prefecture','municipality','index.html','404.html']);
+        const first = location.pathname.split('/').filter(Boolean)[0] || '';
+        const isProjectPages = location.hostname.endsWith('.github.io') && first && !routeRoots.has(first);
+        const basePath = isProjectPages ? `/${first}` : '';
+        window.APP_BASE_PATH = basePath;
+        document.querySelector('#appBase').href = `${basePath}/`;
+        const pending = sessionStorage.getItem('github-pages-route');
+        if (pending) {
+          sessionStorage.removeItem('github-pages-route');
+          history.replaceState({}, '', `${basePath}${pending}`);
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="/regions" aria-label="我的日本探索地圖首頁" data-i18n-aria="siteTitle">
+          <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4c-7.2 0-13 5.6-13 12.6C7 27 20 36 20 36s13-9 13-19.4C33 9.6 27.2 4 20 4Z"/><circle cx="20" cy="17" r="4.5"/></svg></span>
+          <span><strong>旅のしるし</strong><small>MY JAPAN MAP</small></span>
+        </a>
+        <div class="side-label" data-i18n="navSection">探索旅程</div>
+        <nav class="side-nav" aria-label="主要導覽" data-i18n-aria="navSection">
+          <a href="/regions" data-route="regions"><span class="nav-icon">▧</span><span data-i18n="navMap">關東地圖</span></a>
+          <a href="/statistics" data-route="statistics"><span class="nav-icon">◔</span><span data-i18n="navStats">探索統計</span></a>
+        </nav>
+        <div class="side-label prefecture-nav-label" data-i18n="seven">關東七都縣</div>
+        <nav class="side-nav prefecture-nav" aria-label="關東七都縣" data-i18n-aria="seven">
+          <a href="/prefecture/tokyo" data-route="prefecture" data-pref-nav="tokyo"><span class="nav-icon">◉</span><span data-nav-name></span></a>
+          <a href="/prefecture/kanagawa" data-route="prefecture" data-pref-nav="kanagawa"><span class="nav-icon">◉</span><span data-nav-name></span></a>
+          <a href="/prefecture/chiba" data-route="prefecture" data-pref-nav="chiba"><span class="nav-icon">◉</span><span data-nav-name></span></a>
+          <a href="/prefecture/saitama" data-route="prefecture" data-pref-nav="saitama"><span class="nav-icon">◉</span><span data-nav-name></span></a>
+          <a href="/prefecture/ibaraki" data-route="prefecture" data-pref-nav="ibaraki"><span class="nav-icon">◉</span><span data-nav-name></span></a>
+          <a href="/prefecture/tochigi" data-route="prefecture" data-pref-nav="tochigi"><span class="nav-icon">◉</span><span data-nav-name></span></a>
+          <a href="/prefecture/gunma" data-route="prefecture" data-pref-nav="gunma"><span class="nav-icon">◉</span><span data-nav-name></span></a>
+        </nav>
+        <div class="side-bottom">
+          <div class="season-card"><span class="season-flower">✿</span><div><b data-i18n="brandCaption">旅の記録</b><small data-i18n="tagline">每一次出發，都值得收藏。</small></div></div>
+          <span class="local-badge"><i></i><span data-i18n="localData">資料儲存於此裝置</span></span>
+        </div>
+      </aside>
+      <div class="main-column">
+        <header class="topbar">
+          <button class="mobile-menu" id="menuButton" aria-label="開啟導覽" data-i18n-aria="menuOpen">☰</button>
+          <div class="breadcrumb" id="breadcrumb"><span>我的日本</span><b>/</b><span>探索首頁</span></div>
+          <div class="top-actions"><label class="language-picker"><span class="sr-only" data-i18n="language">網站語言</span><select id="languageSelect" aria-label="網站語言"><option value="zh-TW">繁體中文</option><option value="en">English</option><option value="ja">日本語</option></select></label><button id="exportButton" class="export-button" title="匯出旅行資料">↥ <span data-i18n="export">匯出資料</span></button><div class="avatar">旅</div></div>
+        </header>
+        <main id="app" tabindex="-1"></main>
+        <footer class="footer"><span>旅のしるし <i>✿</i> <b data-i18n="footerNote">讓每段旅程，都留下印記。</b></span><span data-i18n="chapter">第一章・關東</span></footer>
+      </div>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="municipalities.js"></script>
+    <script src="boundaries.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

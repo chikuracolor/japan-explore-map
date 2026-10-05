@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Loading travel map…</title>
+    <script>
+      (() => {
+        const routeRoots = new Set(['regions','statistics','collection','achievements','shrines','food','mountains','prefecture','municipality','index.html','404.html']);
+        const first = location.pathname.split('/').filter(Boolean)[0] || '';
+        const isProjectPages = location.hostname.endsWith('.github.io') && first && !routeRoots.has(first);
+        const basePath = isProjectPages ? `/${first}` : '';
+        const route = location.pathname.startsWith(basePath) ? location.pathname.slice(basePath.length) || '/' : location.pathname;
+        if (route !== '/' && route !== '/404.html') sessionStorage.setItem('github-pages-route', `${route}${location.search}${location.hash}`);
+        location.replace(`${basePath}/`);
+      })();
+    </script>
+  </head>
+  <body>Loading…</body>
+</html>
